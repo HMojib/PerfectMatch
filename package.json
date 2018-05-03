@@ -1,0 +1,23 @@
+{
+  "name": "PerfectMatch",
+  "version": "0.0.1",
+  "description": "Perfect Match: The future of online dating",
+  "main": "index.js",
+  "dependencies": {
+    "clarifai": "^2.7.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HMojib/PerfectMatch"
+  },
+  "keywords": [
+    "node",
+    "Perfect",
+    "Match",
+    "Tinder"
+  ],
+  "author": "Hamoun Mojib",
+  "contributors": [
+    "Hamoun Mojib <hamounmojib@gmail.com> (http://hamounmojib.com)"
+  ]
+}

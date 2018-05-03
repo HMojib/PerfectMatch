@@ -1,0 +1,10 @@
+{
+  "DATABASE": {
+    "URL": "mongodb://localhost:27017/",
+    "USERS": "users",
+    "DATABASE_NAME": "perfectmatch"
+  },
+  "API": {
+    "CLARIFAI_API_KEY": "fbfff74d44ee4f81bf978fb6f9d764e6"
+  }
+}
