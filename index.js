@@ -8,7 +8,8 @@ const clarifai = new Clarifai.App({
    apiKey: config.API.CLARIFAI_API_KEY
 });
 
-
+// Helper to get subdirectories in given directory.
+//dir is the directory containing all the people you want to match
 function getFiles(dir){
     let directories = fs.readdirSync(dir);
     directories.forEach(function(directory){
@@ -16,6 +17,10 @@ function getFiles(dir){
     });
 }
 
+/*
+*   info: Get given tags from clarifai. Currently gets demographic information
+*   dir: Directory path to directory containing the person (images and users.json file)  : i.e. Sally Berger
+ */
 function getMetrics(dir) {
     let users_json = dir + "/users.json";
     let user = {
@@ -70,6 +75,11 @@ function getMetrics(dir) {
     });
 }
 
+/*
+*   info: Get general tags from Clarifai
+*   dir: Directory path to image on local disk
+*   base64str: Image in base64str format to send
+ */
 function setGeneralTags(dir, base64str){
     return new Promise (function(resolve, reject){
         clarifai.models.predict(Clarifai.GENERAL_MODEL, base64str ).then(
@@ -98,6 +108,11 @@ function setGeneralTags(dir, base64str){
     });
 }
 
+/*
+*   info: Get demographic information for given image
+*   dir: Directory path to image on local disk
+*   base64str: Image in base64str format to send
+ */
 function setDemographics(dir, base64str){
     return new Promise (function(resolve, reject){
         clarifai.models.predict(Clarifai.DEMOGRAPHICS_MODEL, base64str ).then(
@@ -177,6 +192,7 @@ function setDemographics(dir, base64str){
     });
 }
 
+// Encode pictures into base64 to send as string instead of image file
 function base64_encode(file) {
     // read binary data
     let bitmap = fs.readFileSync(file);
@@ -184,12 +200,13 @@ function base64_encode(file) {
     return new Buffer(bitmap).toString('base64');
 }
 
-function main(GET_FILES){
+function main(GET_FILES, PUSH_TO_DB){
     if(GET_FILES){
        getFiles("./people");
+    }
+    if(PUSH_TO_DB){
+        matching.matchEveryUser();
         database.pushUserToDB('./people')
     }
-
-    matching.matchEveryUser();
 }
 main(true);

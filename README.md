@@ -14,3 +14,8 @@ of age.
 ### General Model
 The general model will find tags in given images. Each image will have certain tags. These tags can then be used to
 match users. Tags can be picture settings (i.e. beach, indoor, outdoor), objects in the picture, and more.
+
+### Running
+Node is necessary to run
+Please follow the standard guide to installing node and then run ```npm install``` in the directory with package.json.
+You may run node files with ```node index.js```

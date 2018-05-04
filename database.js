@@ -6,6 +6,9 @@ const assert = require('assert');
 const MongoClient = require('mongodb').MongoClient;
 
 module.exports = {
+    /*
+    * Inserts given people into database with associated tags
+     */
     pushUserToDB: function (dir) {
         let url = config.DATABASE.URL;
         // Use connect method to connect to the Server

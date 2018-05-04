@@ -7,6 +7,10 @@ const assert = require('assert');
 var numUsers;
 var count = 0;
 module.exports = {
+
+    /*
+    * Gets an array of all matches: every user's matches
+     */
     matchEveryUser: function(){
         let url = config.DATABASE.URL;
         MongoClient.connect(url, function(err, db) {
@@ -36,6 +40,11 @@ module.exports = {
     }
 };
 
+/*
+* Returns an array of matches of a given user
+* user: Current user looking for matches
+* users: All possible matches
+ */
 function getMatches(user, users){
     let returnArray = [];
     users.forEach(function(matches){
@@ -60,6 +69,11 @@ function getMatches(user, users){
     return returnArray;
 }
 
+/*
+* Returns a cross section of tags from two given arrays
+* a: user 1 with tags
+* b: user 2 with tags
+ */
 function getSimTags(a, b) {
     let sorted_a = a.concat().sort();
     let sorted_b = b.concat().sort();
@@ -85,6 +99,11 @@ function getSimTags(a, b) {
     return common;
 }
 
+/*
+* Get users from database
+* userCol: database collection to update'
+* returns all users that have tags
+ */
 function getUsers(userCol){
     return new Promise(function(resolve, reject){
         userCol.find({ "tags": { $exists: true, $ne: null } }).toArray(function(err, docs){
@@ -97,6 +116,12 @@ function getUsers(userCol){
     });
 }
 
+/*
+* Updates database with new matches
+* matches: array of match Objects
+* user: current user to update
+* userCol: database collection to update
+ */
 function updateUserWithMatches(matches, user, userCol){
     return new Promise(function(resolve, reject){
         userCol.updateOne({"first_name": user.first_name, "last_name": user.last_name}, {$set: {"matches": matches}}, function(err, result){
