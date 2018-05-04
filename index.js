@@ -1,12 +1,13 @@
 const Clarifai = require('clarifai');
 const config = require('./config');
 const fs = require('fs');
-const { readdirSync, statSync } = require('fs');
-const { join } = require('path');
+const database = require('./database');
+const matching = require('./matching');
 
 const clarifai = new Clarifai.App({
    apiKey: config.API.CLARIFAI_API_KEY
 });
+
 
 function getFiles(dir){
     let directories = fs.readdirSync(dir);
@@ -140,7 +141,7 @@ function setDemographics(dir, base64str){
                         gender:"",
                         value:""
                     };
-                    if(gender_appearance[0] === 'masculine'){
+                    if(gender_appearance[0].name === 'masculine'){
                         genderObject.gender = 'male';
                         genderObject.value = gender_appearance[0].value;
                     }else{
@@ -184,7 +185,9 @@ function base64_encode(file) {
 }
 
 function main(){
-    getFiles("./people");
+    // getFiles("./people");
+    //database.pushUserToDB('./people')
+    matching.matchEveryUser();
 }
 main();
 

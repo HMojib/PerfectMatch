@@ -1,6 +1,6 @@
 {
   "DATABASE": {
-    "URL": "mongodb://localhost:27017/",
+    "URL": "mongodb://localhost:27017/perfectmatch",
     "USERS": "users",
     "DATABASE_NAME": "perfectmatch"
   },
