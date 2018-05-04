@@ -184,10 +184,12 @@ function base64_encode(file) {
     return new Buffer(bitmap).toString('base64');
 }
 
-function main(){
-    // getFiles("./people");
-    //database.pushUserToDB('./people')
+function main(GET_FILES){
+    if(GET_FILES){
+       getFiles("./people");
+        database.pushUserToDB('./people')
+    }
+
     matching.matchEveryUser();
 }
-main();
-
+main(true);
